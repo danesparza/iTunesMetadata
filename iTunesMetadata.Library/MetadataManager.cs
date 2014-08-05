@@ -31,6 +31,7 @@ namespace iTunesTVMetadata.Library
     {
         public string Name { get; set; }
         public string Description { get; set; }
+        public string Genre { get; set; }
         public int Year { get; set; }
         public string Rating { get; set; }
         public string ArtworkPath { get; set; }
@@ -57,8 +58,8 @@ namespace iTunesTVMetadata.Library
         /// </summary>
         /// <param name="path"></param>
         /// <param name="meta"></param>
-        /// <param name="timout">Timeout in milliseconds</param>
-        public static void SetTVMetaData(string path, TVMetadata meta, int timout = 30000)
+        /// <param name="timeout">Timeout in milliseconds</param>
+        public static void SetTVMetaData(string path, TVMetadata meta, int timeout = 30000)
         {
             //  First, make sure the file exists
             if(File.Exists(path))
@@ -67,22 +68,58 @@ namespace iTunesTVMetadata.Library
                 ProcessStartInfo apPInfo = new ProcessStartInfo();
                 apPInfo.FileName = Path.Combine(currentPath, "AtomicParsley.exe");
 
-                /*
-                apPInfo.Arguments = string.Format(
-                    "\"{0}\" --genre \"TV Shows\" --stik \"TV Show\" --TVShowName \"{1}\" --TVEpisode \"{2}{3}\" --TVSeasonNum {2} --TVEpisodeNum {3} --artist \"{1}\" --title \"{4}\" --description \"{7}\" --contentRating \"{5}\" --artwork \"{6}\" --overWrite",
-                    handbrakeOutput,
-                    episodeInfo.ShowName,
-                    episodeInfo.SeasonNumber,
-                    episodeInfo.EpisodeNumber,
-                    episodeInfo.EpisodeTitle,
-                    metaShowInfo.Rating,
-                    metaShowInfo.ArtworkLocation,
-                    GetEpisodeSummary(episodeInfo.EpisodeSummary)
-                    );
-                */
+                //  Start building our command line:
+                StringBuilder args = new StringBuilder();
 
+                //  Add the file path to the video:
+                args.AppendFormat("\"{0}\" --genre \"TV Shows\" --stik \"TV Show\" --overWrite", path);
+
+                //  If we have the show name, include it
+                if(!string.IsNullOrWhiteSpace(meta.ShowName))
+                {
+                    args.AppendFormat(" --TVShowName \"{0}\" --artist \"{0}\"", meta.ShowName);
+                }
+
+                //  If we have the episode information, include it
+                if(meta.EpisodeNumber > 0)
+                {
+                    args.AppendFormat(" --TVEpisode \"{0}{1}\" --TVEpisodeNum {1}", meta.ShowSeason, meta.EpisodeNumber);
+                }
+
+                //  If we have the season number, include it
+                if(meta.ShowSeason > 0)
+                {
+                    args.AppendFormat(" --TVSeasonNum {0}", meta.ShowSeason);
+                }
+
+                //  If we have the title, include it
+                if(!string.IsNullOrWhiteSpace(meta.EpisodeTitle))
+                {
+                    args.AppendFormat(" --title \"{0}\"", meta.EpisodeTitle);
+                }
+
+                //  If we have the description, include it
+                if(!string.IsNullOrWhiteSpace(meta.EpisodeDescription))
+                {
+                    args.AppendFormat(" --description \"{0}\"", GetEpisodeSummary(meta.EpisodeDescription));
+                }
+
+                //  If we have the artwork, include it
+                if(!string.IsNullOrWhiteSpace(meta.ShowArtworkPath))
+                {
+                    args.AppendFormat(" --artwork \"{0}\"", meta.ShowArtworkPath);
+                }
+
+                //  If we have the content rating, include it
+                if(!string.IsNullOrWhiteSpace(meta.ShowRating))
+                {
+                    args.AppendFormat(" --contentRating \"{0}\"", meta.ShowRating);
+                }
+
+                //  Spit out our finished args and start the process
+                apPInfo.Arguments = args.ToString();
                 Process apProcess = Process.Start(apPInfo);
-                apProcess.WaitForExit(timout);
+                apProcess.WaitForExit(timeout);
 
                 //  If it hasn't exited, but it's not responding...
                 //  kill the process
@@ -98,8 +135,8 @@ namespace iTunesTVMetadata.Library
         /// </summary>
         /// <param name="path"></param>
         /// <param name="meta"></param>
-        /// <param name="timout">Timeout in milliseconds</param>
-        public static void SetMovieMetaData(string path, MovieMetadata meta, int timout = 30000)
+        /// <param name="timeout">Timeout in milliseconds</param>
+        public static void SetMovieMetaData(string path, MovieMetadata meta, int timeout = 30000)
         {
             //  First, make sure the file exists
             if(File.Exists(path))
@@ -108,20 +145,52 @@ namespace iTunesTVMetadata.Library
                 ProcessStartInfo apPInfo = new ProcessStartInfo();
                 apPInfo.FileName = Path.Combine(currentPath, "AtomicParsley.exe");
 
-                /*
-                apPInfo.Arguments = string.Format(
-                    "\"{0}\" --title \"{1}\" --year \"{2}\" --genre \"{3}\" --stik \"Short Film\" --description \"Library\" --artwork \"{4}\" --contentRating \"{5}\" --overWrite",
-                    handbrakeOutput,
-                    movieInfo.Name,
-                    movieInfo.Year,
-                    movieInfo.Genre,
-                    movieInfo.ArtworkLocation,
-                    movieInfo.Rating
-                    );
-                */
+                //  Start building our command line:
+                StringBuilder args = new StringBuilder();
 
+                //  Add the file path to the video:
+                args.AppendFormat("\"{0}\" --stik \"Short Film\" --overWrite", path);
+
+                //  If we have the title, include it
+                if(!string.IsNullOrWhiteSpace(meta.Name))
+                {
+                    args.AppendFormat(" --title \"{0}\"", meta.Name);
+                }
+
+                //  If we have the year, include it
+                if(meta.Year > 0)
+                {
+                    args.AppendFormat(" --year \"{0}\"", meta.Year);
+                }
+
+                //  If we have the genre, include it
+                if(!string.IsNullOrWhiteSpace(meta.Genre))
+                {
+                    args.AppendFormat(" --genre \"{0}\"", meta.Genre);
+                }
+
+                //  If we have the description, include it
+                if(!string.IsNullOrWhiteSpace(meta.Description))
+                {
+                    args.AppendFormat(" --description \"{0}\"", meta.Description);
+                }
+
+                //  If we have the artwork, include it
+                if(!string.IsNullOrWhiteSpace(meta.ArtworkPath))
+                {
+                    args.AppendFormat(" --artwork \"{0}\"", meta.ArtworkPath);
+                }
+
+                //  If we have the content rating, include it
+                if(!string.IsNullOrWhiteSpace(meta.Rating))
+                {
+                    args.AppendFormat(" --contentRating \"{0}\"", meta.Rating);
+                }
+
+                //  Spit out our finished args and start the process
+                apPInfo.Arguments = args.ToString();
                 Process apProcess = Process.Start(apPInfo);
-                apProcess.WaitForExit(timout);
+                apProcess.WaitForExit(timeout);
 
                 //  If it hasn't exited, but it's not responding...
                 //  kill the process
