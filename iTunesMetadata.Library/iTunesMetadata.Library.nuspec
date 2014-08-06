@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>iTunesMetadata</id>
+        <version>$version$</version>
+        <title>iTunesMetadata</title>
+        <authors>Dan Esparza</authors>
+        <owners>danesparza</owners>
+        <projectUrl>https://github.com/danesparza/iTunesMetadata</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Library to write metadata in iTunes videos</description>
+        <summary />
+        <releaseNotes>See project site for latest release notes</releaseNotes>
+        <copyright>Copyright 2014</copyright>
+        <language>en-US</language>
+        <tags>itunes ratings artwork tv show movies</tags>
+    </metadata>
+    <files>
+        <file src="bin\Release\iTunesTVMetadata.Library.dll" target="lib\net40\iTunesTVMetadata.Library.dll" />
+        <file src="bin\Release\AtomicParsley.exe" target="lib\net40\AtomicParsley.exe" />
+    </files>
+</package>
