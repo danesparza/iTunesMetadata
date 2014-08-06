@@ -167,8 +167,15 @@ namespace iTunesTVMetadata.Library
                     args.AppendFormat(" --contentRating \"{0}\"", meta.ShowRating);
                 }
 
-                //  Spit out our finished args and start the process
+                //  Spit out our finished args 
                 apPInfo.Arguments = args.ToString();
+
+                //  Set our process options:
+                apPInfo.CreateNoWindow = false;
+                apPInfo.UseShellExecute = false;
+                apPInfo.WindowStyle = ProcessWindowStyle.Hidden;
+
+                //  Start the process
                 Process apProcess = Process.Start(apPInfo);
                 apProcess.WaitForExit(timeout);
 
@@ -238,8 +245,15 @@ namespace iTunesTVMetadata.Library
                     args.AppendFormat(" --contentRating \"{0}\"", meta.Rating);
                 }
 
-                //  Spit out our finished args and start the process
+                //  Spit out our finished args 
                 apPInfo.Arguments = args.ToString();
+
+                //  Set our process options:
+                apPInfo.CreateNoWindow = false;
+                apPInfo.UseShellExecute = false;
+                apPInfo.WindowStyle = ProcessWindowStyle.Hidden;
+
+                //  Start the process
                 Process apProcess = Process.Start(apPInfo);
                 apProcess.WaitForExit(timeout);
 
