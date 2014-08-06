@@ -14,13 +14,39 @@ namespace iTunesTVMetadata.Library
     /// </summary>
     public class TVMetadata
     {
+        /// <summary>
+        /// The name of the TV show
+        /// </summary>
         public string ShowName { get; set; }
+        
+        /// <summary>
+        /// The season number of the TV show
+        /// </summary>
         public int ShowSeason { get; set; }
+
+        /// <summary>
+        /// The TV show rating.  Should be blank, or one of: 'TV-Y', 'TV-Y7', 'TV-G', 'TV-PG', 'TV-14', 'TV-MA' 
+        /// </summary>
         public string ShowRating { get; set; }
+
+        /// <summary>
+        /// Full local path to artwork to set in the file
+        /// </summary>
         public string ShowArtworkPath { get; set; }
 
+        /// <summary>
+        /// The episode name / title
+        /// </summary>
         public string EpisodeTitle { get; set; }
+
+        /// <summary>
+        /// The number of the episode within the TV season
+        /// </summary>
         public int EpisodeNumber { get; set; }
+
+        /// <summary>
+        /// The episode description / summary
+        /// </summary>
         public string EpisodeDescription { get; set; }        
     }
 
@@ -29,11 +55,36 @@ namespace iTunesTVMetadata.Library
     /// </summary>
     public class MovieMetadata
     {
+        /// <summary>
+        /// The name of the movie
+        /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// An description/summary of the movie
+        /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// The genre for the movie.  Should be blank, or one of: Action, Classics, Comedy, 
+        /// Documentary, DramaHorror, Independent, Kids, Music, 
+        /// Romance, SciFi, ShortFilms, Sports, Thriller, Western
+        /// </summary>
         public string Genre { get; set; }
+
+        /// <summary>
+        /// The 4 digit year in which the movie was released
+        /// </summary>
         public int Year { get; set; }
+
+        /// <summary>
+        /// The movie rating.  Should be blank, or one of: 'G', 'PG', 'PG-13', 'R', 'NC-17'
+        /// </summary>
         public string Rating { get; set; }
+
+        /// <summary>
+        /// Full local path to artwork to set in the file
+        /// </summary>
         public string ArtworkPath { get; set; }
     }
 

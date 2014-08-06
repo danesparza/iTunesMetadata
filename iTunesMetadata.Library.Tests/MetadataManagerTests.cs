@@ -11,16 +11,16 @@ namespace iTunesMetadata.Library.Tests
         public void SetTVMetaData_ValidMetaData_Success()
         {
             //  Arrange
-            string filepath = "";
+            string filepath = @"C:\Temp\MFD4-7.m4v";
             TVMetadata meta = new TVMetadata()
             {
                 ShowName = "Modern Family",
                 ShowSeason = 1,
-                EpisodeNumber = 4,
-                EpisodeTitle = "Some title",
-                EpisodeDescription = "",
-                ShowRating = "",
-                ShowArtworkPath = ""
+                EpisodeNumber = 24,
+                EpisodeTitle = "Family Portrait",
+                EpisodeDescription = "Everything seems to be working against Claire's plans for a new family portrait; Cameron gets a gig as a wedding singer, leaving Mitchell home alone with Lily and a wayward pigeon.",
+                ShowRating = "TV-PG",
+                ShowArtworkPath = @"C:\Temp\artwork\ModernFamilyS01.jpg"
             };
             
             //  Act
