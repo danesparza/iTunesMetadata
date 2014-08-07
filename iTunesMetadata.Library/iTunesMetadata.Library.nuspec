@@ -14,10 +14,10 @@
         <copyright>Copyright 2014</copyright>
         <language>en-US</language>
         <tags>itunes ratings artwork tv show movies</tags>
+        <dependencies>
+            <dependency id="Baseclass.Contrib.Nuget.Output" />
+        </dependencies>
     </metadata>
-    <dependencies>
-        <dependency id="Baseclass.Contrib.Nuget.Output" />
-    </dependencies>
     <files>
         <file src="bin\Release\iTunesTVMetadata.Library.dll" target="lib\net40\iTunesTVMetadata.Library.dll" />
         <file src="bin\Release\AtomicParsley.exe" target="output\AtomicParsley.exe" />
