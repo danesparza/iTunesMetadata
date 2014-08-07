@@ -15,8 +15,11 @@
         <language>en-US</language>
         <tags>itunes ratings artwork tv show movies</tags>
     </metadata>
+    <dependencies>
+        <dependency id="Baseclass.Contrib.Nuget.Output" />
+    </dependencies>
     <files>
         <file src="bin\Release\iTunesTVMetadata.Library.dll" target="lib\net40\iTunesTVMetadata.Library.dll" />
-        <file src="bin\Release\AtomicParsley.exe" target="lib\net40\AtomicParsley.exe" />
+        <file src="bin\Release\AtomicParsley.exe" target="output\AtomicParsley.exe" />
     </files>
 </package>
