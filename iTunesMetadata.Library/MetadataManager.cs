@@ -171,7 +171,7 @@ namespace iTunesTVMetadata.Library
                 apPInfo.Arguments = args.ToString();
 
                 //  Set our process options:
-                apPInfo.CreateNoWindow = false;
+                apPInfo.CreateNoWindow = true;
                 apPInfo.UseShellExecute = false;
                 apPInfo.WindowStyle = ProcessWindowStyle.Hidden;
 
