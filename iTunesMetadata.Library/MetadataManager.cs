@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.WindowsAPICodePack.Shell;
 
 namespace iTunesTVMetadata.Library
 {
@@ -102,6 +103,35 @@ namespace iTunesTVMetadata.Library
         static MetadataManager()
         {
             currentPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        }
+
+        /// <summary>
+        /// Gets the video runtime length in seconds.  Returns 0 if there was a problem getting the length 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static double GetVideoLengthInSeconds(string path)
+        {
+            double nanoseconds = 0;
+            double retval = 0;
+
+            try
+            {
+                //  Get the information from the OS:
+                ShellFile so = ShellFile.FromFilePath(path);
+                if(double.TryParse(so.Properties.System.Media.Duration.Value.ToString(), out nanoseconds))
+                {
+                    // One million nanoseconds in 1 millisecond, 
+                    // but we are passing in 100ns units...
+                    retval = (nanoseconds * 0.0001) / 1000;
+                }
+            }
+            catch(Exception)
+            {
+                /* Eat the exception for now */
+            }
+
+            return retval;
         }
 
         /// <summary>
